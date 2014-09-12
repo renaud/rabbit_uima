@@ -37,7 +37,11 @@ public class RabbitTest {
 
         // delete test channel
         ConnectionFactory factory = new ConnectionFactory();
-        factory.setUri(AMQP_URI);
+        if (AMQP_URI == null) {
+            factory.setHost("localhost");
+        } else {
+            factory.setUri(AMQP_URI);
+        }
         Connection connection = factory.newConnection();
         Channel channel = connection.createChannel();
         try {

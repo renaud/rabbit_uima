@@ -3,6 +3,8 @@ package org.apache.uima.rabbit;
 import static org.apache.uima.rabbit.RabbitWriter.DURABLE;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.uima.UimaContext;
 import org.apache.uima.collection.CollectionException;
@@ -61,7 +63,9 @@ public class RabbitReader extends JCasCollectionReader_ImplBase {
             // receiving
             // setup channels
             receiveChannel = connection.createChannel();
-            receiveChannel.queueDeclare(queue, DURABLE, false, false, null);
+            Map<String, Object> args = new HashMap<String, Object>();
+            args.put("x-max-length", 1000);
+            receiveChannel.queueDeclare(queue, DURABLE, false, false, args);
             receiveChannel.basicQos(1); // max 1 msg at a time to each slave
             // receiving
             consumer = new QueueingConsumer(receiveChannel);

@@ -1,7 +1,6 @@
-# Rabbit UIMA lightweight integration
+# Rabbit UIMA
 
 A very simple and lightweight way to distribute a UIMA pipeline over a RabbitMQ queue.
-
 
 
 ![workflow](docs/rabbit_uima.png)

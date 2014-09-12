@@ -27,7 +27,7 @@ public class RabbitReader extends JCasCollectionReader_ImplBase {
 
     public static final String PARAM_AMQP_URI = "amqpUri";
     @ConfigurationParameter(name = PARAM_AMQP_URI, //
-    description = "null for localhost, or amqpUri, amqp://userName:password@hostName:portNumber/")
+    description = "'localhost', or amqpUri, amqp://userName:password@hostName:portNumber/")
     private String amqpUri;
 
     public static final String PARAM_QUEUE = "queue";
@@ -50,7 +50,7 @@ public class RabbitReader extends JCasCollectionReader_ImplBase {
         try {
             // setup connection
             ConnectionFactory factory = new ConnectionFactory();
-            if (amqpUri == null) {
+            if (amqpUri.equals("localhost")) {
                 factory.setHost("localhost");
             } else {
                 factory.setUri(amqpUri);

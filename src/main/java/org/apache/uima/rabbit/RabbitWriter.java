@@ -31,7 +31,7 @@ public class RabbitWriter extends JCasAnnotator_ImplBase {
     private Channel sendChannel;
 
     @ConfigurationParameter(name = RabbitReader.PARAM_AMQP_URI, //
-    description = "null for localhost, or amqpUri, amqp://userName:password@hostName:portNumber/")
+    description = "'localhost', or amqpUri, amqp://userName:password@hostName:portNumber/")
     private final String amqpUri = null;
 
     @ConfigurationParameter(name = RabbitReader.PARAM_QUEUE, description = "")
@@ -45,7 +45,7 @@ public class RabbitWriter extends JCasAnnotator_ImplBase {
         try {
             // setup connection
             ConnectionFactory factory = new ConnectionFactory();
-            if (amqpUri == null) {
+            if (amqpUri.equals("localhost")) {
                 factory.setHost("localhost");
             } else {
                 factory.setUri(amqpUri);

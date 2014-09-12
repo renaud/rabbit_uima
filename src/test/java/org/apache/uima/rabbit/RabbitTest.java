@@ -29,7 +29,7 @@ import com.rabbitmq.client.ConnectionFactory;
 
 public class RabbitTest {
 
-    public static final String AMQP_URI = null; // localhost
+    public static final String AMQP_URI = "localhost";
     public static final String TEST_CHANNEL = "test";
 
     @Test
@@ -37,7 +37,7 @@ public class RabbitTest {
 
         // delete test channel
         ConnectionFactory factory = new ConnectionFactory();
-        if (AMQP_URI == null) {
+        if (AMQP_URI.equals("localhost")) {
             factory.setHost("localhost");
         } else {
             factory.setUri(AMQP_URI);

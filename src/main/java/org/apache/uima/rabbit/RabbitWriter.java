@@ -34,8 +34,12 @@ public class RabbitWriter extends JCasAnnotator_ImplBase {
     description = "'localhost', or amqpUri, amqp://userName:password@hostName:portNumber/")
     private final String amqpUri = null;
 
-    @ConfigurationParameter(name = RabbitReader.PARAM_QUEUE, description = "")
+    @ConfigurationParameter(name = RabbitReader.PARAM_QUEUE, description = "Name of the Rabbit queue")
     private final String queue = null;
+
+    @ConfigurationParameter(name = RabbitReader.PARAM_MAX_QUEUE_SIZE, mandatory = false, defaultValue = "1000",//
+    description = "The maximum size of the queue. Values for RabbitWriter and Reader should match")
+    private int maxQueueSize;
 
     @Override
     public void initialize(UimaContext context)
@@ -56,7 +60,7 @@ public class RabbitWriter extends JCasAnnotator_ImplBase {
             // setup channels
             sendChannel = connection.createChannel();
             Map<String, Object> args = new HashMap<String, Object>();
-            args.put("x-max-length", 1000);
+            args.put("x-max-length", maxQueueSize);
             sendChannel.queueDeclare(queue, DURABLE, false, false, args);
 
         } catch (Exception e) {

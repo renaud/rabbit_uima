@@ -33,8 +33,13 @@ public class RabbitReader extends JCasCollectionReader_ImplBase {
     private String amqpUri;
 
     public static final String PARAM_QUEUE = "queue";
-    @ConfigurationParameter(name = PARAM_QUEUE, description = "")
+    @ConfigurationParameter(name = PARAM_QUEUE, description = "Name of the Rabbit queue")
     private String queue;
+
+    public static final String PARAM_MAX_QUEUE_SIZE = "maxQueueSize";
+    @ConfigurationParameter(name = PARAM_MAX_QUEUE_SIZE, mandatory = false, defaultValue = "1000",//
+    description = "The maximum size of the queue. Values for RabbitWriter and Reader should match")
+    private int maxQueueSize;
 
     public static final String PARAM_TIMEOUT = "timeout";
     @ConfigurationParameter(name = PARAM_TIMEOUT, mandatory = false, defaultValue = "10",//
@@ -64,7 +69,7 @@ public class RabbitReader extends JCasCollectionReader_ImplBase {
             // setup channels
             receiveChannel = connection.createChannel();
             Map<String, Object> args = new HashMap<String, Object>();
-            args.put("x-max-length", 1000);
+            args.put("x-max-length", maxQueueSize);
             receiveChannel.queueDeclare(queue, DURABLE, false, false, args);
             receiveChannel.basicQos(1); // max 1 msg at a time to each slave
             // receiving

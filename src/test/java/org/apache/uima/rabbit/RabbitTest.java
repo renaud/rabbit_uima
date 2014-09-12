@@ -35,7 +35,7 @@ public class RabbitTest {
     @Test
     public void test() throws Exception {
 
-        // delete test channel
+        // first, delete test channel (if any)
         ConnectionFactory factory = new ConnectionFactory();
         if (AMQP_URI.equals("localhost")) {
             factory.setHost("localhost");

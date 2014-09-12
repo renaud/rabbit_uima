@@ -6,8 +6,16 @@
   <groupId>org.apache.uima</groupId>
   <artifactId>rabbit</artifactId>
   <version>0.0.1-SNAPSHOT</version>
+  <name>Rabbit UIMA</name>
+  <description>A very simple and lightweight way to distribute a UIMA pipeline over a RabbitMQ queue.</description>
 
 
+  <developers>
+    <developer>
+      <name>Renaud Richardet</name>
+      <email>renaud@apache.org</email>
+    </developer>
+  </developers>
 
   <dependencies>
     <dependency>
@@ -29,6 +37,5 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
-
 
 </project>
